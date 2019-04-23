@@ -1,7 +1,6 @@
-import numpy as np
+from keras.datasets import mnist
 
-def prepare_data(data, set, zero_center=False, flatten=False):
-    data_set = data[set]
+def prepare_data(data_set, zero_center=False, flatten=False):
     data_set = data_set.reshape(data_set.shape[0], data_set.shape[1], data_set.shape[2], 1)
     data_set = data_set.astype("float32")
     if zero_center:
@@ -12,10 +11,8 @@ def prepare_data(data, set, zero_center=False, flatten=False):
         data_set = data_set.reshape(data_set.shape[0], data_set.shape[1] * data_set.shape[2])
     return data_set
 
-def get_data(zero_center=False, path="/home/wzwietering/Data/Data/MNIST/mnist.npz"):
-    data = np.load(path)
-    testX = prepare_data(data, "x_test")
-    testY = data["y_test"]
-    trainX = prepare_data(data, "x_train")
-    trainY = data["y_train"]
+def get_data(zero_center=False, flatten=False):
+    (trainX, trainY), (testX, testY) = mnist.load_data()
+    testX = prepare_data(testX, zero_center, flatten)
+    trainX = prepare_data(trainX, zero_center, flatten)
     return trainX, trainY, testX, testY
