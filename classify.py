@@ -22,15 +22,13 @@ def make_model(input_shape=(28,28,1)):
                   metrics=['accuracy'])
     return model
 
-if __name__ == "__main__":
+def setup_gpu():
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
     sess = tf.Session(config=config)
     set_session(sess)
 
-    model = make_model()
-    trainX, trainY, testX, testY = data.get_data()
-    model.fit(trainX, trainY, epochs=10)
+def validate(model, testX, testY):
     val_predict = model.predict(testX)
 
     confusion = confusion_matrix(testY, val_predict.argmax(axis=1))
@@ -50,3 +48,10 @@ if __name__ == "__main__":
     print(f"Precision score: {precision}")
     print(f"Recall score: {recall}")
     print(f"Accuracy: {accuracy}")
+
+if __name__ == "__main__":
+    setup_gpu()
+    model = make_model()
+    trainX, trainY, testX, testY = data.get_data()
+    model.fit(trainX, trainY, epochs=10)
+    validate(model, testX, testY)
