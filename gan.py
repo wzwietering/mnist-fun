@@ -1,8 +1,7 @@
-from keras import initializers
-from keras.layers import Dense, Dropout, Input
-from keras.layers.advanced_activations import LeakyReLU
-from keras.models import Model, Sequential
-from keras.optimizers import Adam
+from tensorflow.keras import initializers
+from tensorflow.keras.layers import Dense, Dropout, Input, LeakyReLU
+from tensorflow.keras.models import Model, Sequential
+from tensorflow.keras.optimizers import Adam
 
 class Gan():
     def __init__(self):

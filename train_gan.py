@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 
-from keras.backend.tensorflow_backend import set_session
 from tqdm import tqdm
 
 import data
@@ -79,8 +78,7 @@ def train(epochs=1, batch_size=128, dc=True):
             discriminator.save(f"models/gan_discriminator_epoch_{e}.h5")
 
 if __name__ == "__main__":
-    config = tf.ConfigProto()
-    config.gpu_options.allow_growth = True
-    sess = tf.Session(config=config)
-    set_session(sess)
-    train(400, dc=False)
+    physical_devices = tf.config.experimental.list_physical_devices('GPU')
+    tf.config.experimental.set_memory_growth(physical_devices[0], True)
+    train(400, dc=True)
+

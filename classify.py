@@ -1,8 +1,7 @@
 import tensorflow as tf
 
-from keras.backend.tensorflow_backend import set_session
-from keras.layers import Dense, Conv2D, Dropout, Flatten, MaxPooling2D
-from keras.models import Sequential
+from tensorflow.keras.layers import Dense, Conv2D, Dropout, Flatten, MaxPooling2D
+from tensorflow.keras.models import Sequential
 from sklearn.metrics import confusion_matrix, f1_score, accuracy_score, recall_score, precision_score
 
 import data
@@ -23,10 +22,8 @@ def make_model(input_shape=(28,28,1)):
     return model
 
 def setup_gpu():
-    config = tf.ConfigProto()
-    config.gpu_options.allow_growth = True
-    sess = tf.Session(config=config)
-    set_session(sess)
+    physical_devices = tf.config.experimental.list_physical_devices('GPU')
+    tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 def validate(model, testX, testY):
     val_predict = model.predict(testX)

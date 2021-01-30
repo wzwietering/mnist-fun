@@ -1,9 +1,7 @@
-from keras import initializers
-from keras.layers import Dense, Dropout, Input, Reshape, Flatten
-from keras.layers.advanced_activations import LeakyReLU
-from keras.layers.convolutional import Conv2D, UpSampling2D
-from keras.models import Model, Sequential
-from keras.optimizers import Adam
+from tensorflow.keras import initializers
+from tensorflow.keras.layers import Dense, Dropout, Input, Reshape, Flatten, LeakyReLU, Conv2D, UpSampling2D
+from tensorflow.keras.models import Model, Sequential
+from tensorflow.keras.optimizers import Adam
 
 class DCGan():
     def __init__(self):
